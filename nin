@@ -1,0 +1,113 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local TextLabel_2 = Instance.new("TextLabel")
+local line2 = Instance.new("Frame")
+local line = Instance.new("Frame")
+local UserName = Instance.new("TextBox")
+local TPBtn = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local UICorner_3 = Instance.new("UICorner")
+
+--Properties:
+ScreenGui.Name = "Morry"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+Frame.BorderColor3 = Color3.fromRGB(31, 30, 30)
+Frame.BorderSizePixel = 5
+Frame.Position = UDim2.new(0.041335173, 0, 0.227577895, 0)
+Frame.Size = UDim2.new(0, 328, 0, 240)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+TextLabel.BorderColor3 = Color3.fromRGB(18, 18, 18)
+TextLabel.Position = UDim2.new(0.0333170556, 0, 0.0370498672, 0)
+TextLabel.Size = UDim2.new(0, 105, 0, 5)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Morry"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 21.000
+
+TextLabel_2.Parent = Frame
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+TextLabel_2.BorderColor3 = Color3.fromRGB(18, 18, 18)
+TextLabel_2.Position = UDim2.new(0.158317104, 0, 0.13183333, 0)
+TextLabel_2.Size = UDim2.new(0, 190, 0, 24)
+TextLabel_2.Font = Enum.Font.SourceSans
+TextLabel_2.Text = "Teleport Player"
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextSize = 21.000
+
+line2.Name = "line2"
+line2.Parent = Frame
+line2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+line2.BorderColor3 = Color3.fromRGB(27, 42, 53)
+line2.Position = UDim2.new(-0.00484662037, 0, 0.270594299, 0)
+line2.Size = UDim2.new(0, 322, 0, 1)
+
+line.Name = "line"
+line.Parent = Frame
+line.Active = true
+line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+line.BorderColor3 = Color3.fromRGB(18, 18, 18)
+line.Position = UDim2.new(0.00819894113, 0, 0.088185966, 0)
+line.Size = UDim2.new(0, 322, 0, 1)
+
+UserName.Name = "UserName"
+UserName.Parent = Frame
+UserName.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+UserName.Position = UDim2.new(0.192073166, 0, 0.395833343, 0)
+UserName.Size = UDim2.new(0, 200, 0, 50)
+UserName.Font = Enum.Font.SourceSans
+UserName.PlaceholderText = "Input Username"
+UserName.Text = ""
+UserName.TextColor3 = Color3.fromRGB(255, 255, 255)
+UserName.TextScaled = true
+UserName.TextSize = 14.000
+UserName.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+UserName.TextWrapped = true
+
+TPBtn.Name = "TPBtn"
+TPBtn.Parent = UserName
+TPBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TPBtn.Position = UDim2.new(0.179999992, 0, 1.38499999, 0)
+TPBtn.Size = UDim2.new(0, 119, 0, 29)
+TPBtn.Font = Enum.Font.SourceSans
+TPBtn.Text = "Teleport"
+TPBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+TPBtn.TextSize = 27.000
+
+UICorner.Parent = TPBtn
+
+UICorner_2.CornerRadius = UDim.new(0.100000001, 8)
+UICorner_2.Parent = UserName
+
+UICorner_3.Parent = Frame
+
+TPBtn.MouseButton1Click:Connect(function()
+	local username = string.lower (UserName.Text)
+	local foundChild = false
+	local child 
+	for i,v in pairs(game.Players:GetChildren()) do
+		if string.lower(v.Name) == username then
+			foundChild = true
+			child = v
+		end
+	end
+	if foundChild == true then
+		local New_Cframe = child.Character.HumanoidRootPart.CFrame
+		local part =	game.Players.LocalPlayer.Character.HumanoidRootPart 
+		local ts = game:GetService ('TweenService')
+		local ti = TweenInfo.new (24,Enum.EasingStyle.Linear)
+		local tp = {CFrame = New_Cframe}
+		ts:Create (part,ti,tp):Play()
+	end
+end)
